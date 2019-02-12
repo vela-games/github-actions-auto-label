@@ -121,12 +121,12 @@ const getLabelIds = (allLabels: Label[], labelNames: LabelName[]) =>
 
   if (labelNamesToAdd.size > 0) {
     try {
-      await addLabelsToLabelable(tools, {
+      const foo = await addLabelsToLabelable(tools, {
         labelIds: getLabelIds(allLabels, [...labelNamesToAdd] as LabelName[]),
         labelableId,
       });
       // tslint:disable-next-line:no-console
-      console.log('hi1: ');
+      console.log('hi1: ', foo);
     } catch (error) {
       console.error('Request failed: ', error.request, error.message);
       tools.exit.failure('addLabelsToLabelable has been failed. ');

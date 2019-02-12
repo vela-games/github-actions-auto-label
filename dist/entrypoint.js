@@ -73,12 +73,12 @@ const getLabelIds = (allLabels, labelNames) => JSON.stringify(lodash_1.values(lo
     console.log('labelableId: ', labelableId);
     if (labelNamesToAdd.size > 0) {
         try {
-            await query_1.addLabelsToLabelable(tools, {
+            const foo = await query_1.addLabelsToLabelable(tools, {
                 labelIds: getLabelIds(allLabels, [...labelNamesToAdd]),
                 labelableId,
             });
             // tslint:disable-next-line:no-console
-            console.log('hi1: ');
+            console.log('hi1: ', foo);
         }
         catch (error) {
             console.error('Request failed: ', error.request, error.message);
