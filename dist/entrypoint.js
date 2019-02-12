@@ -43,7 +43,7 @@ const getLabelIds = (allLabels, labelNames) => JSON.stringify(lodash_1.values(lo
     // tslint:disable-next-line:no-console
     console.log('currentLabelNames: ', currentLabelNames);
     // TODO: handle stderr
-    const { stdout, stderr } = await exec(`git diff --name-only origin/${tools.context.payload.pull_request.base.ref}`);
+    const { stdout, stderr } = await exec(`git diff --name-only ${result.repository.pullRequest.baseRef}`);
     // tslint:disable-next-line:no-console
     console.log('stdout: ', stdout);
     const diffFiles = stdout.trim().split('\n');
@@ -113,6 +113,7 @@ exports.getPullRequestAndLabels = (tools, { owner, repo, number, }) => {
     repository(owner: "${owner}", name: "${repo}") {
       pullRequest(number: ${number}) {
         id
+        baseRef
         baseRefName
         headRefName
         labels(first: 100) {

@@ -61,9 +61,7 @@ const getLabelIds = (allLabels: Label[], labelNames: LabelName[]) =>
 
   // TODO: handle stderr
   const { stdout, stderr } = await exec(
-    `git diff --name-only origin/${
-      tools.context.payload.pull_request!.base.ref
-    }`,
+    `git diff --name-only ${result.repository.pullRequest.baseRef}`,
   );
 
   // tslint:disable-next-line:no-console

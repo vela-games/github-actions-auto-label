@@ -17,6 +17,7 @@ export const getPullRequestAndLabels = (
     repository(owner: "${owner}", name: "${repo}") {
       pullRequest(number: ${number}) {
         id
+        baseRef
         baseRefName
         headRefName
         labels(first: 100) {
