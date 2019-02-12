@@ -18,6 +18,7 @@ export const getPullRequestAndLabels = (
       pullRequest(number: ${number}) {
         id
         baseRefOid
+        headRefOid
         baseRefName
         headRefName
         labels(first: 100) {
