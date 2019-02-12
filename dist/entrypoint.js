@@ -13,7 +13,7 @@ const micromatch = require("micromatch");
 const query_1 = require("./query");
 const util = require("util");
 const exec = util.promisify(require('child_process').exec);
-const configFile = '.github/autolabel.json';
+const configFile = '.github/auto-label.json';
 const tools = new actions_toolkit_1.Toolkit({
     event: ['pull_request.opened', 'pull_request.synchronize'],
 });
