@@ -112,9 +112,12 @@ const getLabelIds = (allLabels: Label[], labelNames: LabelName[]) =>
   );
 
   // tslint:disable-next-line:no-console
-  console.log('lableNamesToRemove: ', lableNamesToRemove);
+  console.log('labelNamesToRemove: ', labelNamesToRemove);
 
   const labelableId = result.repository.pullRequest.id;
+
+  // tslint:disable-next-line:no-console
+  console.log('labelableId: ', labelableId);
 
   if (labelNamesToAdd.size > 0) {
     try {

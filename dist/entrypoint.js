@@ -67,8 +67,10 @@ const getLabelIds = (allLabels, labelNames) => JSON.stringify(lodash_1.values(lo
     console.log('labelNamesToAdd: ', labelNamesToAdd);
     const labelNamesToRemove = new Set([...currentLabelNames].filter((labelName) => !newLabelNames.has(labelName) && ruledLabelNames.has(labelName)));
     // tslint:disable-next-line:no-console
-    console.log('lableNamesToRemove: ', lableNamesToRemove);
+    console.log('labelNamesToRemove: ', labelNamesToRemove);
     const labelableId = result.repository.pullRequest.id;
+    // tslint:disable-next-line:no-console
+    console.log('labelableId: ', labelableId);
     if (labelNamesToAdd.size > 0) {
         try {
             await query_1.addLabelsToLabelable(tools, {
