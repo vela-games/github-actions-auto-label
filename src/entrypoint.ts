@@ -36,6 +36,9 @@ const getLabelIds = (allLabels: Label[], labelNames: LabelName[]) =>
     tools.exit.failure('getPullRequestAndLabels has been failed. ');
   }
 
+  // tslint:disable-next-line:no-console
+  console.log('result: ', result);
+
   const allLabels = result.repository.labels.edges.reduce(
     (acc: Label, edge: LabelEdge) => {
       acc[edge.node.name] = edge.node.id;
@@ -44,11 +47,17 @@ const getLabelIds = (allLabels: Label[], labelNames: LabelName[]) =>
     {},
   );
 
+  // tslint:disable-next-line:no-console
+  console.log('allLabels: ', allLabels);
+
   const currentLabelNames = new Set(
     result.repository.pullRequest.labels.edges.map(
       (edge: LabelEdge) => edge.node.name,
     ),
   );
+
+  // tslint:disable-next-line:no-console
+  console.log('currentLabelNames: ', currentLabelNames);
 
   // TODO: handle stderr
   const { stdout, stderr } = await exec(
@@ -57,7 +66,13 @@ const getLabelIds = (allLabels: Label[], labelNames: LabelName[]) =>
     }`,
   );
 
+  // tslint:disable-next-line:no-console
+  console.log('stdout: ', stdout);
+
   const diffFiles = stdout.trim().split('\n');
+
+  // tslint:disable-next-line:no-console
+  console.log('diffFiles: ', diffFiles);
 
   const newLabelNames = new Set(
     diffFiles.reduce((acc: LabelName[], file: string) => {
@@ -72,7 +87,13 @@ const getLabelIds = (allLabels: Label[], labelNames: LabelName[]) =>
     }, []),
   );
 
+  // tslint:disable-next-line:no-console
+  console.log('newLabelNames: ', newLabelNames);
+
   const ruledLabelNames = new Set(Object.keys(config.rules));
+
+  // tslint:disable-next-line:no-console
+  console.log('ruledLabelNames: ', ruledLabelNames);
 
   const labelNamesToAdd = new Set(
     ([...newLabelNames] as LabelName[]).filter(
@@ -80,12 +101,18 @@ const getLabelIds = (allLabels: Label[], labelNames: LabelName[]) =>
     ),
   );
 
+  // tslint:disable-next-line:no-console
+  console.log('labelNamesToAdd: ', labelNamesToAdd);
+
   const labelNamesToRemove = new Set(
     ([...currentLabelNames] as LabelName[]).filter(
       (labelName: string) =>
         !newLabelNames.has(labelName) && ruledLabelNames.has(labelName),
     ),
   );
+
+  // tslint:disable-next-line:no-console
+  console.log('lableNamesToRemove: ', lableNamesToRemove);
 
   const labelableId = result.repository.pullRequest.id;
 
@@ -95,6 +122,8 @@ const getLabelIds = (allLabels: Label[], labelNames: LabelName[]) =>
         labelIds: getLabelIds(allLabels, [...labelNamesToAdd] as LabelName[]),
         labelableId,
       });
+      // tslint:disable-next-line:no-console
+      console.log('hi1: ');
     } catch (error) {
       console.error('Request failed: ', error.request, error.message);
       tools.exit.failure('addLabelsToLabelable has been failed. ');
@@ -110,6 +139,9 @@ const getLabelIds = (allLabels: Label[], labelNames: LabelName[]) =>
         labelableId,
       });
     } catch (error) {
+      // tslint:disable-next-line:no-console
+      console.log('hi2: ');
+
       console.error('Request failed: ', error.request, error.message);
       tools.exit.failure('removeLabelsFromLabelable has been failed. ');
     }
